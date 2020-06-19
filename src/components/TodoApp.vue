@@ -1,16 +1,19 @@
 <template>
     <div class="todo-app">
         <todo-form @onSubmit="onSubmit"/>
+        <todo-list :todos="todos"/>
     </div>
 </template>
 
 <script>
 import TodoForm from './TodoForm'
+import TodoList from './TodoList'
 
 export default {
     name: 'TodoApp',
     components:{
-        TodoForm
+        TodoForm,
+        TodoList
     },
     methods:{
         onSubmit(payload){
