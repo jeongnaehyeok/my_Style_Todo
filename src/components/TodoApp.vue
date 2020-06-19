@@ -51,5 +51,7 @@ export default {
 </script>
 
 <style>
-
+.todo-app{
+    width: 640px;
+}
 </style>

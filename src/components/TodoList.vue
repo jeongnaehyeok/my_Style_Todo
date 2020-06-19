@@ -35,6 +35,15 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.todo-list{
+    width: 100%;
+}
+ul{
+    width: 100%;
+    padding: 0;
+}
+li{
+    list-style: none;
+}
 </style>

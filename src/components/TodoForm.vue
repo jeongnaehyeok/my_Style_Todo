@@ -27,6 +27,27 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+form{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+    box-shadow: 3px 3px 3px var(--gray);
+}
+input[type="text"] { 
+    width: 80%; 
+    border-right: 0;
+}
+button[type='submit']{
+    width: 20%;
+    border-radius: 0;
+    border: 1px solid var(--black_sub); 
+    outline: none;
+}
+button[type='submit']:hover{
+    background-color: var(--white_sub);
+    cursor: pointer;
+}
 
 </style>
