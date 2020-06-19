@@ -2,7 +2,8 @@
     <div class="todo-app">
         <todo-form @onSubmit="onSubmit"/>
         <todo-list :todos="todos"
-            @onDelete="onDelete"/>
+            @onDelete="onDelete"
+            @updateTodo="updateTodo"/>
     </div>
 </template>
 
@@ -28,6 +29,13 @@ export default {
         onDelete(id){
             const targetIndex = this.todos.findIndex(v => v.id === id)
             this.todos.splice(targetIndex, 1)
+            this.storeTodo()
+        },
+        updateTodo(payload){
+            const { id, todo } = payload
+            const targetIndex = this.todos.findIndex(v => v.id === id)
+            const targetTodo = this.todos[targetIndex]
+            this.todos.splice(targetIndex, 1, {...targetTodo, todo})
             this.storeTodo()
         }
     },

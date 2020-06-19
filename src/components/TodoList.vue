@@ -4,7 +4,8 @@
           <todo-item v-for="todo in todos" 
             :key="todo.id"
             :todo="todo"
-            @onDelete="onDelete"/>
+            @onDelete="onDelete"
+            @updateTodo="updateTodo"/>
       </ul>
       
   </div>
@@ -26,6 +27,9 @@ export default {
     methods:{
         onDelete(id){
             this.$emit('onDelete', id)
+        },
+        updateTodo(payload){
+            this.$emit('updateTodo', payload)
         }
     }
 }
