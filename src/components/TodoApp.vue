@@ -1,7 +1,8 @@
 <template>
     <div class="todo-app">
         <todo-form @onSubmit="onSubmit"/>
-        <todo-list :todos="todos"/>
+        <todo-list :todos="todos"
+            @onDelete="onDelete"/>
     </div>
 </template>
 
@@ -23,6 +24,11 @@ export default {
         storeTodo(){
             const todoToString = JSON.stringify(this.todos)
             localStorage.setItem('todos', todoToString)
+        },
+        onDelete(id){
+            const targetIndex = this.todos.findIndex(v => v.id === id)
+            this.todos.splice(targetIndex, 1)
+            this.storeTodo()
         }
     },
     data(){

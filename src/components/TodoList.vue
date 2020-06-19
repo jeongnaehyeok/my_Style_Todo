@@ -3,7 +3,8 @@
       <ul>
           <todo-item v-for="todo in todos" 
             :key="todo.id"
-            :todo="todo"/>
+            :todo="todo"
+            @onDelete="onDelete"/>
       </ul>
       
   </div>
@@ -21,6 +22,11 @@ export default {
     },
     components:{
         TodoItem
+    },
+    methods:{
+        onDelete(id){
+            this.$emit('onDelete', id)
+        }
     }
 }
 </script>
