@@ -14,8 +14,7 @@ export default {
         onSubmit(){
             const { todo } = this
             if(!todo)return false
-            const id = new Date().getTime()
-            this.$emit('onSubmit', { todo, id })
+            this.$emit('onSubmit', todo)
             this.todo = ''
         }
     },

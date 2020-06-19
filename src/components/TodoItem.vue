@@ -60,6 +60,7 @@ export default {
     align-items: center;
     background-color: white;
     padding: 10px;
+    margin-bottom: 15px;
 }
 .todo-item p{
     max-width: 100%;

@@ -10,6 +10,7 @@
 <script>
 import TodoForm from './TodoForm'
 import TodoList from './TodoList'
+import api from '../api'
 
 export default {
     name: 'TodoApp',
@@ -18,25 +19,27 @@ export default {
         TodoList
     },
     methods:{
-        onSubmit(payload){
-            this.todos.push(payload)
-            this.storeTodo()
-        },
-        storeTodo(){
-            const todoToString = JSON.stringify(this.todos)
-            localStorage.setItem('todos', todoToString)
+        onSubmit(todo){
+            api.post('/', { todo })
+                .then(res => {
+                    this.todos.push(res.data)
+                })
         },
         onDelete(id){
             const targetIndex = this.todos.findIndex(v => v.id === id)
-            this.todos.splice(targetIndex, 1)
-            this.storeTodo()
+            api.delete(`/${id}`)
+                .then(res => {
+                    this.todos.splice(targetIndex, 1)
+                })
         },
         updateTodo(payload){
             const { id, todo } = payload
             const targetIndex = this.todos.findIndex(v => v.id === id)
             const targetTodo = this.todos[targetIndex]
-            this.todos.splice(targetIndex, 1, {...targetTodo, todo})
-            this.storeTodo()
+            api.put(`/${id}`, { todo })
+                .then(res => {
+                    this.todos.splice(targetIndex, 1, {...targetTodo, todo})
+                })
         }
     },
     data(){
@@ -45,7 +48,10 @@ export default {
         }
     },
     created(){
-        this.todos = localStorage.todos ? JSON.parse(localStorage.todos) : [];
+        api.get('/')
+            .then(res => {
+                this.todos = res.data;
+            })
     }
 }
 </script>
