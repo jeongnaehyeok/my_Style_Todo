@@ -13,6 +13,7 @@
 
 <script>
 import TodoItem from "./TodoItem"
+import { mapActions } from 'vuex'
 
 export default {
     name: "TodoList",
@@ -26,11 +27,14 @@ export default {
     },
     methods:{
         onDelete(id){
-            this.$emit('onDelete', id)
+            this.deleteTodo(id)
         },
         updateTodo(payload){
-            this.$emit('updateTodo', payload)
-        }
+            this.updateTodo(payload)
+        },
+        ...mapActions([
+            'deleteTodo',
+            'updateTodo'])
     }
 }
 </script>

@@ -1,16 +1,14 @@
 <template>
     <div class="todo-app">
         <todo-form @onSubmit="onSubmit"/>
-        <todo-list :todos="todos"
-            @onDelete="onDelete"
-            @updateTodo="updateTodo"/>
+        <todo-list :todos="todos"/>
     </div>
 </template>
 
 <script>
 import TodoForm from './TodoForm'
 import TodoList from './TodoList'
-import api from '../api'
+import { mapActions, mapState } from 'vuex'
 
 export default {
     name: 'TodoApp',
@@ -20,38 +18,19 @@ export default {
     },
     methods:{
         onSubmit(todo){
-            api.post('/', { todo })
-                .then(res => {
-                    this.todos.push(res.data)
-                })
+            this.createTodo(todo)
         },
-        onDelete(id){
-            const targetIndex = this.todos.findIndex(v => v.id === id)
-            api.delete(`/${id}`)
-                .then(res => {
-                    this.todos.splice(targetIndex, 1)
-                })
-        },
-        updateTodo(payload){
-            const { id, todo } = payload
-            const targetIndex = this.todos.findIndex(v => v.id === id)
-            const targetTodo = this.todos[targetIndex]
-            api.put(`/${id}`, { todo })
-                .then(res => {
-                    this.todos.splice(targetIndex, 1, {...targetTodo, todo})
-                })
-        }
+        ...mapActions([
+            'getTodos', 
+            'createTodo',
+            'deleteTodo',
+            'updateTodo'])
     },
-    data(){
-        return{
-            todos: [],
-        }
+    computed:{
+        ...mapState(['todos'])
     },
     created(){
-        api.get('/')
-            .then(res => {
-                this.todos = res.data;
-            })
+        this.getTodos()
     }
 }
 </script>
