@@ -1,14 +1,14 @@
 <template>
     <div class="todo-app">
         <todo-form @onSubmit="onSubmit"/>
-        <todo-list :todos="todos"/>
+        <todo-list />
     </div>
 </template>
 
 <script>
 import TodoForm from './TodoForm'
 import TodoList from './TodoList'
-import { mapActions, mapState } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
     name: 'TodoApp',
@@ -21,17 +21,9 @@ export default {
             this.createTodo(todo)
         },
         ...mapActions([
-            'getTodos', 
-            'createTodo',
-            'deleteTodo',
-            'updateTodo'])
+            'createTodo'
+            ])
     },
-    computed:{
-        ...mapState(['todos'])
-    },
-    created(){
-        this.getTodos()
-    }
 }
 </script>
 

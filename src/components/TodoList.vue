@@ -13,15 +13,10 @@
 
 <script>
 import TodoItem from "./TodoItem"
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
     name: "TodoList",
-    props:{
-        todos:{
-            type:Array,
-        }
-    },
     components:{
         TodoItem
     },
@@ -34,7 +29,15 @@ export default {
         },
         ...mapActions([
             'deleteTodo',
-            'updateTodo'])
+            'updateTodo',
+            'getTodos'
+            ])
+    },
+    computed:{
+        ...mapState(['todos'])
+    },
+    created(){
+        this.getTodos()
     }
 }
 </script>
